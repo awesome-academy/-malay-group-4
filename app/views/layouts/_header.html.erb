@@ -1,10 +1,12 @@
 <header class="navbar navbar-fixed-top navbar-inverse">
   <div class="container">
-    <%= link_to image_tag("Malaysia-Prihatin-01-550x550.png", alt: "LOGO", width: "100px"), root_url%>
+    <%= link_to image_tag("Malaysia-Prihatin-01-550x550.png", alt: "navbar-brand", width: "80px"), root_url%>
+    <span class="navbar-title"><%= link_to  "COURSE REGISTRATION SYSTEM" , root_url %></span>
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", root_url %></li>
         <li><%= link_to "Help", help_path %></li>
+        <li><%= link_to "Sign Up", signup_path %></li>
         <li><%= link_to "Log in", "#" %></li>
       </ul>
     </nav>
