@@ -11,3 +11,6 @@ validations:
     min_length: 6
 
 remember_me: 1
+
+other_website:
+    gravatar_email: https://gravatar.com/emails

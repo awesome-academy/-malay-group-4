@@ -16,6 +16,9 @@ gem "turbolinks", "~> 5"
 gem "webpacker", "~> 4.0"
 gem "bootstrap-sass", "~> 3.4", ">= 3.4.1"
 gem "jquery-rails", "~> 4.4"
+gem "faker", "~> 1.6", ">= 1.6.6"
+gem "kaminari", "~> 0.16.3"
+gem "kaminari-bootstrap", "~> 3.0", ">= 3.0.1"
 
 group :development, :test do
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]
