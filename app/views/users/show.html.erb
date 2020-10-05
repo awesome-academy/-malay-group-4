@@ -1,13 +1,20 @@
 <%= provide :title, @user.name %>
-
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-        <%= @user.email %>
-      </h1>
-    </section>
-  </aside>
-</div>
+<%= provide :title, "Home" %>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Course Registration System </title>
+  </head>
+  <body>
+    <div class="row">
+      <aside class="col-md-4">
+        <section class="user_info">
+          <h1><%= gravatar_for @user %></h1>
+            <pre>
+              <b>Name: <%= @user.name %></b> 
+              Email : <%= @user.email %>
+            </pre>
+        </section>
+      </aside>
+    </div>
+  </body>
+</html>
