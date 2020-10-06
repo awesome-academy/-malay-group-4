@@ -15,6 +15,8 @@ class User < ApplicationRecord
   
   before_save :downcase_email
   
+  paginates_per 20
+
   class << User
     def digest string
       cost = ActiveModel::SecurePassword.min_cost ? Bcrypt::Engine::MIN_COST :

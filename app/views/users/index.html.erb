@@ -1,0 +1,15 @@
+<%= provide :title, "All User" %>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Course Registration System </title>
+  </head>
+  <body>
+    <h1>Users</h1>
+    <ul class="users">
+      <%= @users.each do |user| %>
+        <%= render "users/user" %>
+      <% end %>
+    </ul>
+    <%= paginate @user %>
+  </body>
+</html>
