@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     if user&.authenticate params[:session][:password]
       if user.activated?
         log_in user
-        params [:session][:remember_me] == Settings.remember_me ? remember(user) : forget(user)
+        params[:session][:remember_me] == Settings.remember_me ? remember(user) : forget(user)
         redirect_back_or user
       else
         flash[:warning] = "Account not activated. Check your email for the activation link."

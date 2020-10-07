@@ -1,0 +1,22 @@
+<%= provide :title, "Show Courses" %>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Course Registration System </title>
+  </head>
+  <body>
+    <div class="row">
+      <aside class="col-md-4">
+        <section class="course_info">
+            <pre>
+              <b>Name: <%= @course.title %></b> 
+              Email : <%= @course.description %>
+              Credits : <%= @course.credits %>
+            </pre>
+        </section>
+      </aside>
+    </div>  
+    <%= link_to "Back", root_url %>
+    <%= link_to "Edit", editcourses_path %>
+    <%= link_to "Delete", course, method: delete, data: { confirm: "Confirm?" } %>
+  </body>
+</html>
