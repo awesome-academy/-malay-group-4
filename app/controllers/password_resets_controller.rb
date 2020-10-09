@@ -1,5 +1,5 @@
 class PasswordResetsController < ApplicationController
-  before_action :get_user, :valid_user, :check_expiration, only: %i(edit update)
+  before_action :get_user, :valid_user, :check_expiration, only: %i(update)
 
   def new; end
 
@@ -43,18 +43,19 @@ class PasswordResetsController < ApplicationController
     return if @user
 
     flash[:danger] = "User not found"
-     redirect_to root_url
+    redirect_to root_url
    end
 
-   def valid_user
-     return if @user && @user.activated? && @user.authenticated? :reset, params[:id]
-     redirect_to root_url
-   end
+  def valid_user
+    return if @user &.activated? && @user.authenticated?(:reset, params[:id])
+
+    redirect_to root_url
+  end
 
    def check_expiration
-     return unless @user.password_reset_expired?
+    return unless @user.password_reset_expired?
 
-     flash[:danger] = "Password reset has expired."
-     redirect_to new_password_reset_url
+    flash[:danger] = "Password reset has expired."
+    redirect_to forgotpassword_url
    end
 end

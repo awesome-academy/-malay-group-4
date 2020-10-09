@@ -1,0 +1,11 @@
+<%= provide :title, "All Courses" %>
+<html>
+  <head>
+    <title><%= yield(:title) %> | Course Registration System </title>
+  </head>
+  <body>
+    <% @courses.each do |course| %>
+      <h2><%=link_to course.title, course %></h2>
+    <% end %>
+  </body>
+</html>

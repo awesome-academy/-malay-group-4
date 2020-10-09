@@ -1,28 +1,34 @@
 class User < ApplicationRecord
   attr_accessor :remember_token, :activation_token, :reset_token
-  validates :name, presence: true, 
-    length: {maximum: Settings.validations.name.max_length}
-
-  validates :email, presence: true, 
-    length: { maximum: Settings.validations.email.max_length},
-    format: { with: Settings.validations.email.regex },
-    uniqueness: true
-  
-  validates :password, presence: true, 
-    length: { minimum: Settings.validations.password.min_length }
-  
-  has_secure_password 
+  has_secure_password
   
   before_save :downcase_email
   before_create :create_activation_digest
   
   paginates_per 20
+  enum role: {user: 0, admin: 1}
+  
+  after_initialize do
+    self.role ||= :user if self.new_record?
+  end
+
+  validates :name, presence: true, 
+    length: {maximum: Settings.validations.name.max_length}
+
+  validates :email, presence: true, 
+    length: {maximum: Settings.validations.email.max_length},
+    format: {with: Settings.validations.email.regex},
+    uniqueness: true
+  
+  validates :password, presence: true, 
+    length: {minimum: Settings.validations.password.min_length}
+  
 
   class << User
-    def digest string
-      cost = ActiveModel::SecurePassword.min_cost ? Bcrypt::Engine::MIN_COST :
-                                                    Bcrypt::Engine.cost
-      Bcrypt::Password.create(string, cost: cost)
+    def User.digest string
+      cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                    BCrypt::Engine.cost
+      BCrypt::Password.create(string, cost: cost)
     end
 
     def new_token
@@ -35,11 +41,11 @@ class User < ApplicationRecord
     update_attribute :remember_digest, User.digest(remember_token)
   end
 
-  def authenticated? attribute, new_token
+  def authenticated?(attribute, new_token)
     digest = send "#{attribute}_digest"
     return false if remember_digest.nil?
 
-    Bcrypt::Password.new(remember_digest).is_password?(remember_token)
+    BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
 
   def forget
@@ -70,7 +76,7 @@ class User < ApplicationRecord
   private
 
   def downcase_email
-    self.email = email.downcase!
+    email.downcase
   end
 
   def create_activation_digest
